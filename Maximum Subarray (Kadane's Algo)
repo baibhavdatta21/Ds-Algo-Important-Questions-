@@ -1,0 +1,73 @@
+//Brute Force
+TC->O(N*N*N)
+SC->O(1)
+
+int maxSubArray(vector<int>& nums) 
+{
+        int maxsum = INT_MIN;
+        int currsum=0
+        
+        for(int i=0; i<nums.size(); i++)
+        {
+            for(int j=i; j<nums.size(); j++)
+            {
+                currsum=0;
+                for(int k=i;k<=j;k++)
+                {
+                  currsum =currsum+nums[j];
+                  maxsum = max(maxsum, currsum);
+                } 
+            }
+        }
+    return maxsum;
+ }
+ 
+ 
+ //Better Approach
+ TC->O(N*N)
+ SC->O(1)
+ 
+int maxSubArray(vector<int>& nums) 
+{
+        int maxsum = INT_MIN;
+        int currsum=0
+        
+        for(int i=0; i<nums.size(); i++)
+        {
+            currsum=0;
+            for(int j=i; j<nums.size(); j++)
+            {
+                  currsum =currsum+nums[j];
+                  maxsum = max(maxsum, currsum);
+            }
+        }
+    return maxsum;
+ }
+ 
+ //Optimized Approach
+ TC->O(N)
+ SC->O(1)
+ 
+ int maxSubArray(vector<int>& nums) 
+    {
+        int maxsum=INT_MIN;
+        int currsum=0;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            currsum=currsum+nums[i];
+            if(maxsum<currsum)
+            {
+                maxsum=currsum;
+            }
+            if(currsum<0)
+            currsum=0;
+        }
+        return maxsum;
+        
+    }
+ 
+ 
+ 
+ 
+ 
