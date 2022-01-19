@@ -1,0 +1,89 @@
+//Brute Force
+//TC->O(n*log(N))+O(N)+O(N)
+//SPC->O(N)
+void merge(int arr1[], int arr2[], int n, int m) 
+  {
+    int arr3[n+m];
+    int k = 0;
+    for (int i = 0; i < n; i++) 
+    {
+      arr3[k++] = arr1[i];
+    }
+    for (int i = 0; i < m; i++) 
+    {
+      arr3[k++] = arr2[i];
+    }
+    sort(arr3,arr3+m+n);
+    k = 0;
+    for (int i = 0; i < n; i++) 
+    {
+      arr1[i] = arr3[k++];
+    }
+    for (int i = 0; i < m; i++) 
+    {
+      arr2[i] = arr3[k++];
+    }
+
+  }
+  
+  //Better
+  //TC->O(N*M)
+  //SC->O(1)
+  
+  /*void merge(long long arr1[], long long arr2[], int n, int m) 
+        { 
+            // code here 
+        
+            for(long long i=0;i<n;i++)
+            {
+                if(arr1[i]>arr2[0])
+                {
+                    int temp=arr1[i];
+                    arr1[i]=arr2[0];
+                    arr2[0]=temp;
+                }
+                
+                long long first=arr2[0];
+                long long k;
+                for(k=1;k<m && arr2[k]<first;k++)
+                {
+                    arr2[k-1]=arr2[k];
+                }
+                arr2[k-1]=first;
+            }
+        }*/
+        //Optimized
+        //TC->O(nlogn)
+        //SC->O(1)
+        /*void merge(long long arr1[], long long arr2[], int n, int m)
+        {
+            long long  gap = ceil((float)(n + m) / 2);//rounding up to the next integer
+            while(gap!=0)
+            {
+                long long  i=0;
+                long long j=gap;
+                while(j<n+m)
+                {
+                    if(j<n && arr1[i]>arr1[j])
+                    {
+                        swap(arr1[i],arr1[j]);
+                    }
+                    else if(j>=n && i<n && arr1[i]>arr2[j-n])
+                    {
+                        swap(arr1[i],arr2[j-n]);
+                    }
+                    else if(j>=n && i>=n && arr2[i-n]>arr2[j-n])
+                    {
+                        swap(arr2[i-n],arr2[j-n]);
+                    }
+                    i++;
+                    j++;
+                    
+                }
+                if(gap==1)
+                gap=0;
+                else
+                gap = ceil((float) gap / 2);//rounding up to the next integer
+            }
+        }*/
+  
