@@ -1,0 +1,50 @@
+Brute force
+//TC->O(N)+O(N)
+//SC->O(N)
+int *findTwoElement(int *arr, int n) 
+    {
+        // code here
+        int missing,repeating;
+        vector<int>d(n+1,0);
+        for(int i=0;i<n;i++)
+        {
+              d[arr[i]]++;
+            
+        }
+        
+        for(int i=0;i<n+1;i++)
+        {
+            if(d[i]>1)
+            repeating=i;
+            if(d[i]==0)
+            missing=i;
+        }
+        
+        int *v=new int[2];
+        v[0]=repeating;
+        v[1]=missing;
+        return v;
+        
+    }*/
+    //Better
+    //TC->O(N)
+    //SC->O(1)
+    int *findTwoElement(int *arr, int n)
+    {
+        
+        long long int s=((long long int)n*(n+1))/2;
+        long long int ss=((long long int)n*(n+1)*(2*n+1))/6;
+        for(long long int i=0;i<n;i++)
+        {
+            s=s-arr[i];
+            ss=ss-((long long int)arr[i]*(long long int)arr[i]);
+        }
+        int missing = (s + ss/s)/2;
+
+        int repeating = missing - s;
+        int *v=new int[2];
+        v[0]=repeating;
+        v[1]=missing;
+        return v;
+    }
+    //EXOR SOLUTION
