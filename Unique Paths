@@ -1,0 +1,126 @@
+//Brute Force
+//Tc->(2to the power m*n)
+//Sc->O(n-1)+O(m-1)[path length]
+/*int solver(int i,int j)
+    {
+        if(i==0 && j==0)
+        return 1;
+        if(i<0 || j<0)
+        return 0;
+        
+        int up=solver(i-1,j);
+        int l=solver(i,j-1);
+        
+        return l+up;
+        
+    }
+    int uniquePaths(int m, int n) 
+    {
+        return solver(m-1,n-1);
+        
+    }*/
+    //Better
+    //Tabulation
+    //TC->O(N*M)
+    //Sc->O(n-1)+O(m-1)[path length]
+    
+    /*int solver(int i,int j, vector<vector<int>>&dp)
+    {
+        if(i==0 && j==0)
+        return 1;
+        if(i<0 || j<0)
+        return 0;
+        if(dp[i][j]!=-1)
+        return dp[i][j];
+        
+        int up=solver(i-1,j,dp);
+        int l=solver(i,j-1,dp);
+        
+        return dp[i][j]=l+up;
+        
+    }
+    int uniquePaths(int m, int n) 
+    {
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return solver(m-1,n-1,dp);
+        
+    }*/
+    //Better
+    //Tabulation
+    //TC->O(N*M)
+    //SP->O(N*N)
+     /*int uniquePaths(int m, int n) 
+    {
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(i==0 && j==0)
+                dp[i][j]=1;
+                else
+                {
+                    int up=0;
+                    int l=0;
+                    if(i>0)
+                    l=dp[i-1][j];
+                    if(j>0)
+                    up=dp[i][j-1];
+                    
+                    dp[i][j]=l+up;
+                }
+                
+            }
+            
+        }
+        return dp[m-1][n-1];
+    }*/
+    //Tabulation Space optimized
+    //TC->O(N*N)
+    //SP->O(N)+O(N)
+    /*int uniquePaths(int m, int n) 
+    {
+        vector<int> prev(n,0);
+        for(int i=0;i<m;i++)
+        {
+            vector<int> cur(n,0);
+            for(int j=0;j<n;j++)
+            {
+                if(i==0 && j==0)
+                cur[j]=1;
+                else
+                {
+                    int l=0;
+                    int up=0;
+                    if(i>0)
+                    up=prev[j];
+                    if(j>0)
+                    l=cur[j-1];   
+                    cur[j]=up+l;    
+                }    
+                
+            }
+            prev=cur;
+            
+        }
+        
+        return prev[n-1];
+    }*/
+    
+   //Optimized (permutation/combination)
+   //Tc->O(N)
+   //SC->O(1)
+    int uniquePaths(int m, int n) 
+    {
+        int N=m+n-2;
+        int r=m-1;
+        double ans=1;
+        
+        for(int i=1;i<=r;i++)
+        {
+            ans=ans*(N-r+i);
+            ans=ans/i;
+    
+        }
+        return int(ans);
+    }
