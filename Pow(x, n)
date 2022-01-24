@@ -1,0 +1,61 @@
+//Brute Force
+double myPow(double x, int n)
+    {
+        return pow(x,n);
+    }
+    //Better
+    //TC->O(N)+O(N)
+    double myPow(double x, int n)
+    {
+        //return pow(x,n);
+        /*if(x==1)
+        return x;    
+        double ans=1;
+        if(n>=0)
+        {
+            for(long long int i=0;i<n;i++)
+            {
+                ans=ans*x;
+            }
+        }
+        else
+        {
+            for(long long int i=0;i<(-n);i++)
+            {
+                ans=ans/x;
+            }
+        }
+            
+        return ans;
+    }*/
+    //Optimized
+    //Tc->log(n)
+    double myPow(double x, int n)
+    {
+        //return pow(x,n);
+        if(x==1)
+        return x;
+        double ans;
+        
+        long long int nn=n;
+        if(n<0)
+        nn=(-1)*nn;   
+        
+        while(nn>0)
+        {
+            if(nn%2==0)
+            {
+                x=x*x;
+                nn=nn/2;
+            }
+            else
+            {
+                ans=ans*x;
+                nn=nn-1;
+            }
+        }
+        if(n>=0)
+        return ans;
+        else
+        return (1/ans);
+    }
