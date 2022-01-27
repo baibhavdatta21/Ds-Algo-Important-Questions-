@@ -1,0 +1,72 @@
+  //Brute
+  //O(N*N)
+  //O(1)
+  
+  /*vector<int> twoSum(vector<int>& nums, int target)
+    {
+        vector<int> ans;
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(i!=j)
+                {
+                    if(nums[i]+nums[j]==target)
+                    {
+                        ans.push_back(i);
+                        ans.push_back(j);
+                    }
+                }   
+            }
+        }
+        return ans;
+        
+    }*/
+    
+    //Better
+    //O(NlogN)
+    //O(1)
+   vector<int> twoSum(vector<int>& nums, int target) 
+    {
+        vector<int>ans;
+        int n = nums.size();
+        
+        for(int i=0;i<n-1;i++)
+        {
+            int a=target-nums[i];
+            int b=find(begin(nums)+i+1,end(nums),a)-nums.begin();//logn
+            if(b!=n)
+            {
+                ans.push_back(i);
+                ans.push_back(b);
+                break;
+            }
+         }
+        
+        return ans;
+    }
+    
+    //Otimized
+    //O(N)
+    //O(N)
+      /*vector<int> twoSum(vector<int>& nums, int target)
+      {
+          vector<int>ans;
+          unordered_map<int,int> mapp;
+          int n=nums.size();
+          for(int i=0;i<n;i++)
+          {
+              int b=target-nums[i];
+              if(mapp.find(b)!=mapp.end())
+              {
+                  ans.push_back(i);
+                  ans.push_back(mapp[b]);
+              }
+              else
+              {
+                  mapp[nums[i]]=i;
+            
+              }
+          }
+          return ans;
+      }*/
