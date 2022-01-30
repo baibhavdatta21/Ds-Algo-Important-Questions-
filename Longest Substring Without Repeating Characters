@@ -1,0 +1,105 @@
+//BruteForce
+//TC->O(N*N)
+//SC->O(1)
+int lengthOfLongestSubstring(string s) 
+    {
+        set<int> ans;
+        long long  int maxans = INT_MIN;
+          for (long long int i = 0; i < s.length(); i++) // outer loop for traversing the string
+          {
+            unordered_set < int > set;
+            for (long long int j = i; j < s.length(); j++) // nested loop for getting different string starting with str[i]
+            {
+              if (set.find(s[j]) != set.end()) // if element if found so mark it as ans and break from the loop
+              {
+                maxans = max(maxans, j - i);
+                break;
+              }
+              set.insert(s[j]);
+            }
+          }
+          return maxans;
+    }*/
+    //Better
+    //TC->O(2N)
+    //SC->O(N)
+    /*int lengthOfLongestSubstring(string s) 
+    {
+        int l=0;
+        int r=0;
+        int count=0;
+        int max_count=0;
+        unordered_set<char> se;
+        for(int i=0;i<s.length();i++)
+        {
+            if (se.find(s[i])!=se.end())
+            {
+               while(i>l && se.find(s[i])!=se.end())
+               {
+                   se.erase(s[l]);
+                   l++;
+                }
+            }      
+            se.insert(s[i]);
+            count=i-l+1;
+            max_count=max(count,max_count);
+        }
+        return max_count;
+    }*/
+    //Optimized aaproach
+    //TC->O(N)
+    //SC->O(N)
+    /*int lengthOfLongestSubstring(string s) 
+    {
+        int l=0;
+        int r=0;
+        int count=0;
+        int max_count=0;
+        unordered_set<char> se;
+        for(long int i=0;i<s.length();i++)
+        {
+            if(se.empty() || se.find(s[i])==se.end())
+            {
+                se.insert(s[i]);
+                r++;
+            }
+            else
+            {
+               while(r>l && se.find(s[i])!=se.end())
+               {
+                   se.erase(s[l]);
+                   l++;
+                   
+               }
+                se.insert(s[i]);
+                r++;
+            }
+            count=r-l;
+            max_count=max(count,max_count);
+        }
+        return max_count;
+    }*/
+    int lengthOfLongestSubstring(string s) 
+    {    
+        int l=0;
+        int r=0;
+        int count=0;
+        int max_count=0;
+        unordered_map<char,int> mp;
+        for(int i=0;i<s.length();i++)
+         {
+            
+             if(mp.find(s[i])!=mp.end())
+             {
+                 l=max(mp[s[i]]+1,l);
+                 mp[s[i]]=i;
+                  
+             }
+             mp.insert({s[i],i});
+             
+             count=i-l+1;
+             max_count=max(count,max_count);
+        }
+        return max_count; 
+        
+    }
