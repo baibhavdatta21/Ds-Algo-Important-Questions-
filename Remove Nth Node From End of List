@@ -1,0 +1,67 @@
+//Brute Force
+//TC->O(N)+O(N)
+//SC->(1)
+ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {
+        
+        ListNode* temp=head;
+        ListNode* dummy=head;
+        int count=0;
+        while(temp!=NULL)
+        {
+            temp=temp->next;
+            count=count+1;
+        }
+
+        count=count-n;
+        if(count==0)
+        {
+            return head->next;
+        }
+        while(dummy!=NULL)
+        {
+            count--;
+            if(count==0)
+            {
+                dummy->next=dummy->next->next;
+                break;
+            }    
+            
+            else
+            dummy=dummy->next;
+            
+        }
+        return head;
+    }
+    //Optimized 
+    //Tc->O(N)
+    //SC->O(1)
+    /*ListNode* removeNthFromEnd(ListNode* head, int n)
+    {
+        if(head==NULL)
+        return NULL;
+        
+        
+                
+        ListNode* slow=head;
+        ListNode* fast=head;
+        
+        
+        while(n!=0)
+        {
+            fast=fast->next;
+            n--;
+        }
+        
+        if(fast==NULL)
+        return slow->next;
+        
+       
+        while(fast->next!=NULL)
+        {
+            fast=fast->next;
+            slow=slow->next;
+        }
+        slow->next=slow->next->next;
+        return head;
+    }*/
