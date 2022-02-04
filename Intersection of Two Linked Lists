@@ -1,0 +1,121 @@
+//Better Approach
+//TC->O(N+M)
+//SC->O(N)
+/* ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+    {
+        ListNode* head1=headA;
+        ListNode* head2=headB;
+        unordered_set<ListNode*> mp;
+        while(head1!=NULL)
+        {
+            mp.insert(head1);
+            head1=head1->next;
+        }
+        while(head2!=NULL)
+        {
+            if(mp.find(head2)==mp.end())
+            {
+                mp.insert(head2);
+                head2=head2->next;
+            }
+            else
+            {
+                return head2;
+            }
+        }
+        return NULL;
+        
+        
+    }*/
+    //optimal
+    //Tc->O(max(m,n),min(n,m))
+    //Sc->O(1)
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) 
+    {
+         int count=0;
+         ListNode* head1=headA;
+         ListNode* head2=headB;
+         int flag=-1;
+         while(head1!=NULL && head2!=NULL)
+         {
+             head1=head1->next;
+             head2=head2->next;
+         }
+         if(head1!=NULL)
+         {
+              while(head1!=NULL)
+              {
+                  count++;
+                  head1=head1->next;
+                  flag=1;
+              }
+         }
+         else if(head2!=NULL)
+         {
+              while(head2!=NULL)
+              {
+                  count++;
+                  head2=head2->next;
+                  flag=2;
+              }
+         }
+         else
+         count=0;
+         if(flag!=2)
+         {
+             while(count!=0)
+             {
+                 headA=headA->next;
+                 count--;
+             }
+         }
+         else
+         {
+             
+             while(count!=0)
+             {
+                 headB=headB->next;
+                 count--;
+             }
+         
+         }  
+         while(headA!=headB)
+         {
+             headA=headA->next;
+             headB=headB->next;
+         }
+         return headA;
+             
+    }
+    //Best optimal
+    //O(N+M)
+    //O(1)
+   /* ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+    {
+        ListNode* head1=headA;
+        ListNode* head2=headB;
+        
+        while(head1!=head2)
+        {
+            if(head1==NULL)
+            {
+                head1=headB;
+            }
+            else if(head1!=NULL)
+            {
+                head1=head1->next;
+            }
+            
+            if(head2==NULL)
+            {
+                head2=headA;
+            }
+            else if(head2!=NULL)
+            {
+                head2=head2->next;
+            }
+            
+        }
+        return head1;
+        
+    }
