@@ -1,0 +1,76 @@
+//Brute
+//Tc->O(N)+O(N)
+//SC->O(N)
+ListNode* Reverse_LL(ListNode* head)
+    {
+        ListNode* cur=head;
+        ListNode* nxt;
+        ListNode* prev=NULL;
+        
+        while(cur!=NULL)
+        {
+            nxt=cur->next;
+            cur->next=prev;
+            
+            prev=cur;
+            cur=nxt;
+        }    
+        return prev;
+    }
+    /*
+    bool isPalindrome(ListNode* head) 
+    {
+        ListNode *ptr=head;
+        ListNode *temp=head;
+        ListNode *rev=new ListNode(ptr->val);
+        ptr=ptr->next;
+        ListNode *v=rev;
+        
+        while(ptr!=NULL)
+        {
+            rev->next=new ListNode(ptr->val);
+            rev=rev->next;
+            ptr=ptr->next;
+        } 
+        ListNode* temp2=Reverse_LL(v);
+        
+        while(temp!=NULL && temp2!=NULL)
+        {
+            if(temp->val!=temp2->val)
+            return false;
+            temp=temp->next;
+            temp2=temp2->next;
+        }
+        
+         return true; 
+    }  */
+    //Brute
+    //Tc->O(N/2)+O(N/2)+O(N/2)
+    //SC->O(1)
+    bool isPalindrome(ListNode* head)
+    {
+        //ListNode* temp=head;
+        //ListNode* ptr=head;
+        ListNode* temp2=head;
+        ListNode* slow=head;
+        ListNode* fast= head;
+        
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+
+        slow=Reverse_LL(slow);
+        
+        while(slow!=NULL)
+        {
+            if(temp2->val!=slow->val)
+            return false;
+            temp2=temp2->next;
+            slow=slow->next;
+            
+        }
+        return true;
+        
+    }
