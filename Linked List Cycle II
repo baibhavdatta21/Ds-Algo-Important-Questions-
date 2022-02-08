@@ -1,0 +1,51 @@
+//brute
+//TC->O(length)
+//sc->O(N)
+
+ListNode *detectCycle(ListNode *head) 
+    {
+        ListNode* temp=head;
+        //int count=0;
+        unordered_set<ListNode*> mp;
+        while(temp!=NULL)
+        {
+            if(mp.find(temp)==mp.end())
+            {
+                mp.insert(temp);
+            }
+            else
+            {
+                return temp;
+            }
+            temp=temp->next;
+        }
+        return NULL;
+    }
+    //optimized
+//TC->O(length+more)
+//sc->O(1)
+    /*ListNode *detectCycle(ListNode *head) 
+    {
+        if(head==NULL || head->next==NULL)
+        return NULL;    
+
+        ListNode* slow=head;
+        ListNode* fast=head;
+        ListNode* entry=head;
+        
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow)
+            {
+                while(fast!=entry)
+                {
+                    fast=fast->next;
+                    entry=entry->next;
+                }
+                return fast;
+            }    
+        }
+        return NULL;
+    }*/ 
