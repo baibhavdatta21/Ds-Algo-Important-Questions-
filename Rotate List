@@ -1,0 +1,32 @@
+// optimized
+//TC->O(N)+O(count-k)
+//Sc->O(1)
+
+ListNode* rotateRight(ListNode* head, int k) 
+    {
+        if(head==NULL || k==0 || head->next==NULL)
+        return head;    
+        ListNode* temp=head;
+        ListNode* head1=head;
+        int count=1;
+        while(temp->next!=NULL)
+        {
+            count++;
+            temp=temp->next;
+        }
+        
+        if(k>count)
+        k=k%count;
+        int x=count-k;
+        if(x==0)
+        return head;
+        temp->next=head;
+        while(x!=1)
+        {
+            head1=head1->next;
+            x--;
+        }
+        head=head1->next;
+        head1->next=NULL;
+        return head;
+    }
