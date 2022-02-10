@@ -1,0 +1,65 @@
+ //Brute
+ //Map
+ //O(N)+O(N)
+ //O(N)
+ Node* copyRandomList(Node* head) 
+    {
+        Node* temp=head;
+        //Node* ptr=head;
+        map<Node*,Node*> mp;
+        
+        while(temp!=NULL)
+        {
+            Node* dummy=new Node(temp->val);
+            
+            mp[temp]=dummy;
+            temp=temp->next;
+        }
+        temp=head;
+        Node* head2=mp[temp];
+        while(temp!=NULL)
+        {
+            mp[temp]->next=mp[temp->next];
+            mp[temp]->random=mp[temp->random];
+            temp=temp->next;
+        }
+        return head2;
+    }*/
+     //Optimized
+     //O(N)+O(N)+O(N)
+     //O(1)
+    Node* copyRandomList(Node* head) 
+    {
+        Node* temp=head;
+        
+        while(temp!=NULL)
+        {
+            Node* dummy=new Node(temp->val);
+            dummy->next=temp->next;
+            temp->next=dummy;
+            temp=temp->next->next;
+        }
+        temp=head;
+        while(temp!=NULL)
+        {
+            if(temp->random!=NULL)
+            temp->next->random=temp->random->next;
+            //temp=temp->next;
+            temp=temp->next->next;
+        }
+        temp=head;
+        Node* head2=new Node(0);
+        Node* ans=head2;
+        Node* fast=head;
+       
+        while(temp!=NULL)
+        {
+            fast=temp->next->next;
+            head2->next=temp->next;
+            
+            temp->next=fast;
+            head2=head2->next;
+            temp=temp->next;
+        }
+        return ans->next;
+    }
