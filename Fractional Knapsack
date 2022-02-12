@@ -1,0 +1,35 @@
+//Optimized
+//Tc->O(NlogN)+O(N)
+//SC->O(1)
+
+static bool compare(Item a,Item b)
+    {
+    
+        double r1=double(a.value)/(a.weight);
+        double r2=double(b.value)/(b.weight);
+        return r1>r2;
+    }
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        // Your code here
+        sort(arr,arr+n,compare);
+        
+        double ans=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(W>=arr[i].weight)
+            {
+                W=W-arr[i].weight;
+                ans=ans+double(arr[i].value);
+            }
+            else
+            {
+                
+                ans=ans+(double)(arr[i].value/(double)arr[i].weight)*W;
+                break;
+            }
+        }
+        return ans;
+        
+    }
