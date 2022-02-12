@@ -1,0 +1,35 @@
+//Optimized
+//Tc->O(NlogN)+O(NlogN)+O(N)
+//SC->O(N)
+int findPlatform(int arr[], int dep[], int n)
+    {
+    	// Your code here
+    	
+    	int count=1;
+    	int max_count=1;
+    	
+    	sort(arr,n+arr);
+    	sort(dep,n+dep);
+    	int cout=1;
+    	int maxi=1;
+    	int i=1;
+    	int j=0;
+    	
+    	while(i<n && j<n)
+    	{
+    	    if(arr[i]<=dep[j])
+    	    {
+    	        count++;
+    	        i++;
+    	    }
+    	    else if(dep[j]<arr[i])
+    	    {
+    	        count--;
+    	        j++;
+    	    }
+    	    maxi=max(count,maxi);
+    	}
+    	return maxi;
+    	
+    	
+    }
