@@ -1,0 +1,24 @@
+//Optimal
+//Tc->O(2^N)
+//Sc->O(N)
+void solver(int i,vector<int> arr,vector<int> &v,int sum)
+    {
+        if(i==0)
+        {
+            v.push_back(sum+arr[0]);
+            v.push_back(sum);
+            return;
+        }
+        solver(i-1,arr,v,sum+arr[i]);
+        solver(i-1,arr,v,sum);
+    }
+    
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int> v;
+        int sum=0;
+        solver(N-1,arr,v,sum);
+        return v;
+        
+    }
