@@ -1,0 +1,54 @@
+//Recursion
+//Tc->O(2^n)+O(2^nlogn)
+//Sc->we use an extra set structure
+void solver(int i,vector<int>& nums,vector<int> dummy,set<vector<int>>&s)
+    {
+        if(i==nums.size())
+        {
+            sort(dummy.begin(),dummy.end());
+            s.insert(dummy);  
+            return;
+        }
+        solver(i+1,nums,dummy,s);
+        dummy.push_back(nums[i]);
+        solver(i+1,nums,dummy,s);
+    }    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        int n=nums.size();
+        set<vector<int>> s;
+        vector<vector<int>> ans;
+        vector<int> dummy;
+        solver(0,nums,dummy,s);
+        for(auto it:s)
+        {
+            ans.push_back(it);
+        }
+        return ans;
+    }*/
+    //Optimized
+    //Recursion
+    //Tc->O(2^n)+O(nlogn)
+    //Sc->we do not use an extra set structure
+    void solver(int index,vector<int>& nums,vector<int> dummy,vector<vector<int>>&ans)
+    {
+        ans.push_back(dummy);
+        for(int i=index;i<nums.size();i++)
+        {
+            if(i!=index && nums[i]==nums[i-1])
+            continue;
+            dummy.push_back(nums[i]);
+            solver(i+1,nums,dummy,ans);
+            dummy.pop_back();
+            
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        int n=nums.size();
+        vector<vector<int>> ans;
+        sort(nums.begin(),nums.end());
+        vector<int> dummy;
+        solver(0,nums,dummy,ans);
+        return ans;
+    
