@@ -3,6 +3,8 @@
 the coins vector we have been given helps to do in greedy
 
 //optimal
+//Tc->O(N)
+//Sc->O(1)
 int findMinimumCoins(int amount) 
 {
     // Write your code here
