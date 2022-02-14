@@ -1,0 +1,46 @@
+//Brute using next_permutation
+//Tc->O(n*n!)
+//Sc->O(1)
+string getPermutation(int n, int k)
+    {
+        string s = "";
+        for (int i = 1; i <= n; i++)
+        s =s + to_string(i);
+        
+        int curPerm = 1;
+        
+        while (curPerm < k) 
+        {
+            curPerm++;
+            next_permutation(s.begin(), s.end());
+        }
+        return s;
+    }
+    // using next_permutation
+    //Tc->O(n*n)
+    //Sc->O(n)
+
+    /*string getPermutation(int n, int k) 
+    {
+        int fact=1;
+        vector<int> numbers;
+        for(int i=1;i<n;i++)
+        {
+            fact=fact*i;
+            numbers.push_back(i);
+        }
+        numbers.push_back(n);
+        string ans="";
+        k=k-1;
+        while(true)
+        {
+            ans=ans+to_string(numbers[k/fact]);
+            numbers.erase(numbers.begin()+k/fact);
+            if(numbers.size()==0)
+            break;
+            k=k%fact;
+            fact=fact/numbers.size();
+        }
+        return ans;
+                   
+    }*/
