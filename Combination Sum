@@ -1,0 +1,35 @@
+//Recursion
+//Tc->more than O(2^n)
+//Sc->O(k*x)
+
+void solver(int i,vector<int>& candidates,vector<int> dummy,vector<vector<int>>&ans,int target)
+    {
+        if(target==0)
+        {
+            ans.push_back(dummy);
+            return;
+        }
+        if(i==candidates.size())
+        {
+            return;
+        }
+        
+        
+        
+        if(target>=candidates[i])
+        {
+            dummy.push_back(candidates[i]);
+            solver(i,candidates,dummy,ans,target-candidates[i]);
+            dummy.pop_back();
+        }
+        solver(i+1,candidates,dummy,ans,target);
+        
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
+    {
+        vector<vector<int>> ans;
+        vector<int> dummy;
+        int n=candidates.size();
+        solver(0,candidates,dummy,ans,target);
+        return ans;
+    }
