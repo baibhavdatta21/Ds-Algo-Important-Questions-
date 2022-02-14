@@ -1,0 +1,44 @@
+//optimized 
+//Tc->O(N!*N)
+//Sc->O(1)
+
+bool isPal(string s,int start,int end)
+    {
+         while(end>=start)
+         {
+            if(s[start]!=s[end])
+            {
+                return false;
+            }
+             start++;
+             end--;
+             
+         }
+        return true;
+
+    }
+    void solver(int index,string s,vector<string>&dummy,vector<vector<string>> &ans)
+    {
+        if(index==s.size())
+        {
+            ans.push_back(dummy);
+            return;
+        }  
+        for(int i=index;i<s.size();i++)
+        {
+            if(isPal(s,index,i))
+            {
+                dummy.push_back(s.substr(index,i-index+1));
+                solver(i+1,s,dummy,ans);
+                dummy.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<string>> partition(string s) 
+    {
+        vector<vector<string>> ans;
+        vector<string> dummy;
+        solver(0,s,dummy,ans);
+        return ans;
+    }
