@@ -1,0 +1,69 @@
+//Recursion
+//Brute
+//Tc->O(2^n)*(nlogn)+n
+//Sc->Extra set
+void solver(int i,vector<int>& candidates,vector<int> dummy,set<vector<int>> &s,int target)
+    {
+        if(target==0)
+        {
+            
+            s.insert(dummy);
+            return ;
+        }
+        if(i==candidates.size())
+        {
+            return;
+        }
+        if(target>=candidates[i])
+        {
+            dummy.push_back(candidates[i]);
+            solver(i+1,candidates,dummy,s,target-candidates[i]);
+            dummy.pop_back();
+        }
+        solver(i+1,candidates,dummy,s,target);
+
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
+    {
+        set<vector<int>> s;
+        vector<int> dummy;
+        vector<vector<int>> ans;
+        sort(candidates.begin(),candidates.end());
+        solver(0,candidates,dummy,s,target);
+        for(auto it:s)
+        {
+            ans.push_back(it);
+        }
+        return ans;
+    }*/
+  //Recursion
+  //optimal
+  //Tc->O(2^n)+(nlogn)
+ //Sc->no Extra set
+    void solver(int index,vector<int>& candidates,  vector<int> dummy,vector<vector<int>> &ans,int target)
+    {
+        if(target==0)
+        {
+            ans.push_back(dummy);
+        }
+        
+        for(int i=index;i<candidates.size();i++)
+        {
+            if(i!=index && candidates[i]==candidates[i-1])
+             continue;
+            if(target>=candidates[i])
+            {
+                dummy.push_back(candidates[i]);
+                solver(i+1,candidates,dummy,ans,target-candidates[i]);
+                dummy.pop_back();
+            }   
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
+    {
+        vector<vector<int>> ans;
+        vector<int> dummy;
+        sort(candidates.begin(),candidates.end());
+        solver(0,candidates,dummy,ans,target);
+        return ans;
+    }
