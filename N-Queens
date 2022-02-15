@@ -1,0 +1,77 @@
+//optimized
+
+bool isSafe(int row,int col, vector<string> &board, int n )
+    {
+        //upper left diagonal
+        int dum_row=row;
+        int dum_col=col;
+        
+        while(row>=0 && col>=0)
+        {
+            if(board[row][col]=='Q')
+            {
+                return false;
+            }
+            row--;
+            col--;
+            
+        }
+        //horizontal left block
+        row=dum_row;
+        col=dum_col;
+        while(col>=0)
+        {
+            if(board[row][col]=='Q')
+            {
+                return false;
+            }
+            col--;
+        }
+        //lower left diagonals
+        row=dum_row;
+        col=dum_col;
+        while(row<n && col>=0)
+        {
+            if(board[row][col]=='Q')
+            {
+                return false;
+            }
+            col--;
+            row++;
+        }
+        return true;
+    }
+    
+    
+    void solver(int col,int n,vector<string> &board,vector<vector<string>> &ans)
+    {
+        if(col==n)
+        {
+            ans.push_back(board);
+            return;
+        }
+        for(int row=0;row<n;row++)
+        {
+            if(isSafe(row,col,board,n))
+            {
+                board[row][col]='Q';
+                solver(col+1,n,board,ans);
+                board[row][col]='.';
+            }
+        }
+    }
+    
+    
+    vector<vector<string>> solveNQueens(int n) 
+    {
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string str(n,'.');
+        for(int i=0;i<n;i++)
+        {
+            board[i]=str;
+        }
+        solver(0,n,board,ans);
+        return ans;
+        
+    }
