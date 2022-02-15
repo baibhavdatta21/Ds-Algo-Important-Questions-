@@ -1,0 +1,30 @@
+//Optimized 
+void solver(int i,int j,int n,vector<vector<int>> &m,vector<string> &ans,string str,vector<vector<int>>visited)
+    {
+        
+        if(i>=n||j>=n||i<0||j<0 ||m[i][j]==0||visited[i][j]==1)
+        {
+            return;
+        }
+        if(i==n-1 && j==n-1)
+        {
+            ans.push_back(str);
+        }
+        visited[i][j]=1;
+        solver(i-1,j,n,m,ans,str+"U",visited);
+        solver(i+1,j,n,m,ans,str+"D",visited);
+        solver(i,j-1,n,m,ans,str+"L",visited);
+        solver(i,j+1,n,m,ans,str+"R",visited);
+        visited[i][j]=0;
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) 
+    {
+     
+        // Your code goes 
+        vector<vector<int>>visited(n,vector<int>(n));
+        vector<string> ans;
+        string str="";
+        solver(0,0,n,m,ans,str,visited);
+        return ans;
+        
+    }
