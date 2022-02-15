@@ -1,4 +1,6 @@
 //Optimized 
+Tc->O(4^n+m)
+Sc->O(n*m)
 void solver(int i,int j,int n,vector<vector<int>> &m,vector<string> &ans,string str,vector<vector<int>>visited)
     {
         
