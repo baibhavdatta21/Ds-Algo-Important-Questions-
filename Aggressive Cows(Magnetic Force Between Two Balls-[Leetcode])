@@ -1,0 +1,42 @@
+bool isPoss(int mid,vector<int>& position,int m)
+    {
+        int count=1;
+        int org =position[0];
+        
+        for(int i=1;i<position.size();i++)
+        {
+            if(position[i]-org>=mid)
+            {
+                count++;
+                org=position[i];
+            }
+            if(count==m)
+            {
+                return true;
+            }
+            
+        }
+        return false;
+        
+    }
+    int maxDistance(vector<int>& position, int m) 
+    {
+        sort(position.begin(),position.end());
+        int n=position.size();
+        int low=1;
+        int high=position[n-1];
+        while(high>=low)
+        {
+            int mid=(low+high)/2;
+            if(isPoss(mid,position,m))
+            {
+                low=mid+1;
+                
+            }
+            else
+            {
+                high=mid-1;
+            }
+        }
+        return high;
+    }
