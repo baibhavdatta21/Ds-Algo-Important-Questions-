@@ -1,3 +1,6 @@
+//optimized
+//Tc->O(nlogn)+O(nlogn)
+//SC->O(1)
 bool isPoss(int mid,vector<int>& position,int m)
     {
         int count=1;
