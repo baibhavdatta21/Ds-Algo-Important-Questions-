@@ -1,0 +1,102 @@
+struct Node
+{
+	Node* links[26];
+    bool flag=false;
+    
+    bool componentsKey(char ch)
+    {
+        if(links[ch-'a']==NULL)
+        return false;
+        return true;
+    }
+    Node* get(char ch)
+    {
+		return links[ch-'a'];
+    }
+	void puts(char ch, Node* node)
+    {
+        links[ch-'a']=node;
+    }
+    void change()
+    {
+		 flag=true;
+    }
+    bool check()
+    {
+        return flag;
+    }
+};
+class Trie
+{
+    private: Node* node;
+    public:
+    Trie()
+    {
+        node=new Node();
+    }
+    
+    void insert(string word)
+    {
+        Node* root=node;
+        
+        for(int i=0;i<word.size();i++)
+        {
+            if(root->componentsKey(word[i])==0)
+            { 
+               root->puts(word[i], new Node()); 
+            }
+            root=root->get(word[i]);
+            
+        }
+        root->change();
+    }
+    bool checkIN(string word)
+    {
+		Node* root=node;
+        bool flag=true;
+        for(int i=0;i<word.size();i++)
+        {
+            if(root->componentsKey(word[i]))
+            {
+                root=root->get(word[i]);
+                if(root->check()==false)
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}; 
+
+string completeString(int n, vector<string> &a)
+{
+   		// Write your code here.
+    Trie* obj=new Trie();
+    for(auto it : a)
+    {
+        obj->insert(it); 
+    }
+    string longest="";
+    for(auto word:a)
+    {
+        if(obj->checkIN(word))
+        {
+            string potential=word;
+            if(potential.length()>longest.length())
+            {
+                longest=potential;
+            }
+            else if(potential.length()==longest.length() and potential<longest)
+            {
+                longest=potential;
+            }
+  
+         }
+    }  
+    if(longest == "") 
+    return "None"; 
+    return longest; 
+}
