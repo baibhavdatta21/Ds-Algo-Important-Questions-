@@ -1,5 +1,5 @@
 //Trie
-//Tc->O(logN)
+//Tc->O(N^2 logN)
 struct Node{
     Node* links[26];
     
