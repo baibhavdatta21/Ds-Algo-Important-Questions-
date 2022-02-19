@@ -1,4 +1,5 @@
-
+//Trie
+//Tc->O(logN)
 struct Node{
     Node* links[26];
     
