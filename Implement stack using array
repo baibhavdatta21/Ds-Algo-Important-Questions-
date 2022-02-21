@@ -1,0 +1,22 @@
+//Function to push an integer into the stack.
+int top=-1;
+int arr[100];
+void MyStack :: push(int x)
+{
+    // Your Code
+    arr[top+1]=x;
+    top++;
+    
+    
+}
+
+//Function to remove an item from top of the stack.
+int MyStack :: pop()
+{
+    // Your Code
+    if(top==-1)
+    return -1;
+    
+    
+    return arr[top--];
+}
