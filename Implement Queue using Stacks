@@ -42,7 +42,7 @@ MyQueue() {
     }
     
     //Optimized   
-    Tc->O(1)(Amontised)
+    Tc->O(1)(amortized)
     Sc->O(2N)
     MyQueue() {
         
