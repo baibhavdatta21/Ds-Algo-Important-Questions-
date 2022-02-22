@@ -1,0 +1,34 @@
+//Tc->O(N*N)
+//Sc->O(1)
+
+void insert_sorted(stack<int> &s,int num)
+{
+    if(s.empty() || s.top()<=num)
+    {
+        s.push(num);
+        return;
+    }
+    
+    int n=s.top();
+    s.pop();
+    insert_sorted(s,num);
+    s.push(n);
+    
+}
+void vaccant(stack<int> &s)
+{
+    if(s.empty())
+    return;
+    
+    int check=s.top();
+    s.pop();
+    vaccant(s);
+    insert_sorted(s,check);
+    
+}
+void SortedStack :: sort()
+{
+   //Your code here
+   vaccant(s);
+   
+}
