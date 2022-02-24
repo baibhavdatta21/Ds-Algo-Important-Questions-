@@ -1,0 +1,132 @@
+//brute
+//Tc->O(N*N)
+class Solution {
+/*int largestRectangleArea(vector<int>& height) 
+    {
+        stack<int>st1;
+        stack<int> st2;
+        int n=height.size();
+        vector<int> left(n);
+        vector<int> right(n);
+        int maxi=0;
+        int check=0;
+        for(int i=0;i<n;i++)
+        {
+            while(!st1.empty() && height[st1.top()]>=height[i])
+            {
+                st1.pop();
+            }
+            if(st1.empty())
+            {
+                left[i]=0;
+            }
+            else
+            {
+                left[i]=st1.top()+1;
+            }
+            st1.push(i);
+        
+        }
+        for(int i=n-1;i>=0;i--)
+        {
+            while(!st2.empty() && height[st2.top()]>=height[i])
+            {
+                st2.pop();
+            }
+            if(st2.empty())
+            {
+                right[i]=n-1;
+            }
+            else
+            {
+                right[i]=st2.top()-1;
+            }
+            st2.push(i);
+        }
+        for(int i=0;i<n;i++)
+        {
+            check=(right[i]-left[i]+1)*height[i];
+            maxi=max(check,maxi);
+        }
+        return maxi;
+        
+    } */
+    
+    //Optimized sol
+    //Tc->O(N*N)
+    //Sc->O(N)
+    /*int largestRectangleArea(vector<int>& height)
+    {
+        stack<int> st;
+        int n=height.size();
+        if(n==1)
+        return height[n-1];
+        vector<int>v(n+1);
+        int maxi=0;
+        int check=0;
+        int right;
+        int left;
+        int first;
+        int second;
+        for(int i=0;i<n;i++)
+        {
+           while(!st.empty() && height[st.top()]>=height[i])
+           {
+               first=st.top();
+               st.pop();
+               if(st.empty())
+               {
+                   check=(i)*height[first];
+                   
+               }
+               else
+               {
+                   
+                   check=(i-st.top()-1)*height[first];
+               }
+               
+               maxi=max(check,maxi);
+           }
+           st.push(i); 
+        }
+        while(!st.empty())
+        {
+            first=st.top();
+            st.pop();
+            if(st.empty())
+            {
+               check=n*height[first];
+            }
+            else
+            {
+                check=(n-st.top()-1)*height[first];
+            }
+            
+            maxi=max(check,maxi);
+        }
+        return maxi;
+
+    }*/
+    
+    //Optimized sol(strver)
+    //Tc->O(N*N)
+    //Sc->O(N)
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int> st; 
+        int maxA = 0; 
+        int n = heights.size(); 
+        for(int i = 0;i<=n;i++) {
+            while(!st.empty() && (i==n || heights[st.top()] >= heights[i])) {
+                int height = heights[st.top()];
+                st.pop(); 
+                int width; 
+                if(st.empty()) width = i; 
+                else width = i - st.top() - 1; 
+                
+                // cout << i << " " << width << " " << height << endl; 
+                maxA = max(maxA, width * height); 
+            }
+            st.push(i); 
+        }
+        return maxA;
+    }
