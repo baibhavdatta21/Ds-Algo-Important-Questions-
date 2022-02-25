@@ -1,0 +1,141 @@
+//Optimized(me)
+//Tc->O(N*N)*4
+//SC->O(N*N)
+int orangesRotting(vector<vector<int>>& grid) 
+    {
+        if(grid.empty())
+        return 0;
+        int n=grid.size();
+        int m=grid[0].size();
+        int count=0;
+        int time=0;
+        int check=0;
+        queue<pair<int,int>>q;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j]!=0)
+                {
+                    count++;
+                }
+                if(grid[i][j]==2)
+                {
+                    q.push({i,j});
+                }
+                
+            }
+        }
+        while(!q.empty())
+        {
+            int k=q.size();
+            check+=k;
+            
+            while(k--)
+            {
+                int a=q.front().first;
+                int b=q.front().second;
+                q.pop();
+
+                if(a+1>=0 && b>=0 && a+1<n && b<m && grid[a+1][b]==1)
+                {
+                    grid[a+1][b]=2;
+                    q.push({a+1,b});
+                }
+                if(a-1>=0 && b>=0 && a-1<n && b<m &&  grid[a-1][b]==1)
+                {
+                    grid[a-1][b]=2;
+                    q.push({a-1,b});
+                }
+                if(a>=0 && b+1>=0 && a<n && b+1<m &&  grid[a][b+1]==1)
+                {
+                    grid[a][b+1]=2;
+                    q.push({a,b+1});
+                }
+                if(a>=0 && b-1>=0 && a<n && b-1<m &&  grid[a][b-1]==1)
+                {
+                    grid[a][b-1]=2;
+                    q.push({a,b-1});
+                }
+            }    
+            if(!q.empty())
+            {
+                time++;
+            }
+
+        }
+        
+        //cout<<count<<" "<<check<<endl;
+        if(count==check)
+        return time;
+        return -1;
+    }*/
+    //Optimized(stiver)
+    //Tc->O(N*N)*4
+    //SC->O(N*N)
+    
+    int orangesRotting(vector<vector<int>>& grid) 
+    {
+        if(grid.empty())
+        return 0;
+
+        
+        int n=grid.size();
+        int m=grid[0].size();
+        //if(n==1 && m==1 && grid[0][0]==0)
+        //return 0;
+        int count=0;
+        int time=0;
+        int check=0;
+        queue<pair<int,int>>q;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j]!=0)
+                {
+                    count++;
+                }
+                if(grid[i][j]==2)
+                {
+                    q.push({i,j});
+                }
+                
+            }
+        }
+        int dx[4]={0,0,-1,1};
+        int dy[4]={1,-1,0,0};
+        while(!q.empty())
+        {
+            int k=q.size();
+            check+=k;
+            
+            while(k--)
+            {
+                int a=q.front().first;
+                int b=q.front().second;
+                q.pop();
+
+                for(int i=0;i<4;i++)
+                {
+                    int nx=a+dx[i];
+                    int ny=b+dy[i];
+                    if(nx>=0 && ny>=0 && nx<n && ny<m && grid[nx][ny]==1)
+                    {
+                        grid[nx][ny]=2;
+                        q.push({nx,ny});
+                    }
+                }
+            }    
+            if(!q.empty())
+            {
+                time++;
+            }
+
+        }
+        
+        //cout<<count<<" "<<check<<endl;
+        if(count==check)
+        return time;
+        return -1;
+    }
