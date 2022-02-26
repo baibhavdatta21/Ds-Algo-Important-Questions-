@@ -1,3 +1,7 @@
+//Optimized
+//Tc->anatomizeO(1)
+//Sc->O(2N)
+
 stack<pair<int,int>> st;
     int next(int price) 
     {
