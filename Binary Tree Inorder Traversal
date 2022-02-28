@@ -1,0 +1,50 @@
+//Recursive
+//Tc->O(N)
+//Sc->O(N)
+
+void solver(TreeNode* root,vector<int> &ans)
+    {
+        if(root==NULL)
+        return;
+        
+        solver(root->left,ans);
+        ans.push_back(root->val);
+        solver(root->right,ans);
+    }
+    vector<int> inorderTraversal(TreeNode* root) 
+    {
+        vector<int>ans;
+        solver(root,ans);
+        return ans;
+    }*/
+    
+    //Iterative
+    //Tc->O(N)
+    //Sc->O(N)
+    
+    vector<int> inorderTraversal(TreeNode* root)
+    {
+        stack<TreeNode*> st;
+        TreeNode* dummy=root;
+        vector<int>ans;
+        while(true)
+        {
+            if(dummy!=NULL)
+            {
+                st.push(dummy);
+                dummy=dummy->left;
+            }
+            else
+            {
+                if(st.empty())
+                {
+                    break;
+                }
+                dummy=st.top();
+                st.pop();
+                ans.push_back(dummy->val);
+                dummy=dummy->right;
+            }
+        }
+        return ans;
+    }
