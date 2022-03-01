@@ -1,0 +1,88 @@
+//Recursive
+//Tc->O(N)
+//Sc->O(N)
+void solver(TreeNode* root,vector<int> &ans)
+    {
+        if(root==NULL)
+        return;
+        
+        solver(root->left,ans);
+        solver(root->right,ans);
+        
+        ans.push_back(root->val);
+    }
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        vector<int>ans;
+        solver(root,ans);
+        return ans;
+    }*/
+   //Itrative(2 stacks)
+  //Tc->O(N)
+  //Sc->O(2N)
+    /*vector<int> postorderTraversal(TreeNode* root)
+    {
+        
+        stack<TreeNode*> st1,st2;
+        vector<int> ans;
+        if(root==NULL)
+        return ans;
+        st1.push(root);
+        
+        while(!st1.empty())
+        {
+            TreeNode* dummy=st1.top();
+            st1.pop();
+            st2.push(dummy);
+            
+            if(dummy->left!=NULL)
+            st1.push(dummy->left);
+            if(dummy->right)
+            st1.push(dummy->right);
+        }
+        while(!st2.empty())
+        {
+            ans.push_back(st2.top()->val);
+            st2.pop();
+        }
+        return ans;
+    }*/
+    //Itrative(1 stack)
+    //Tc->O(2N)
+    //Sc->O(N)
+    vector<int> postorderTraversal(TreeNode* root)
+    {
+        vector<int>ans;
+        stack<TreeNode*> st;
+        
+        while(root!=NULL || !st.empty())
+        {
+            if(root!=NULL)
+            {
+                st.push(root);
+                root=root->left;
+            }
+            else
+            {
+                TreeNode* temp=st.top()->right;
+                if(temp==NULL)
+                {
+                    temp=st.top();
+                    st.pop();
+                    ans.push_back(temp->val);
+                    
+                    while(!st.empty() && temp==st.top()->right)
+                    {
+                        temp=st.top();
+                        st.pop();
+                        ans.push_back(temp->val);
+                    }
+                }
+                else
+                {
+                    root=temp;
+                }
+            }
+        }
+        return ans;
+    }
