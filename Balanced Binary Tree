@@ -1,0 +1,60 @@
+//BRUTE
+//Tc->O(N*N)
+//SC->O(N)
+/*int height(TreeNode* root)
+    {
+        if(root==NULL)
+        return 0;
+        int l=height(root->left);
+        int r=height(root->right);
+       
+        return 1+max(r,l);
+    }
+    bool isBalanced(TreeNode* root) 
+    {
+    
+        if(root==NULL)
+        return true;
+        while(root!=NULL)
+        {
+            int l=height(root->left);
+            int r=height(root->right);
+            if(abs(l-r)>1)
+            return false;
+            bool right=isBalanced(root->right);
+            bool left=isBalanced(root->left);
+            
+            if(!left || !right)
+            return false;
+            return true;
+        }    
+        //cout<<l<<" "<<r<<endl;
+       
+      
+       return false;
+       //Optimized
+      //Tc->O(N)
+      //SC->O(N)  
+    }*/
+    int check(TreeNode* root)
+    {
+        if(root==NULL)
+        return 0;
+        int l=check(root->left);
+        int r=check(root->right);
+        
+        if(l==-1 || r==-1)
+        return -1;
+        if(abs(l-r)>1)
+        return -1;
+        
+        return 1+max(l,r);
+    }
+    bool isBalanced(TreeNode* root) 
+    {
+        if(root==NULL)
+        return true;
+        if(check(root)==-1)
+        return false;
+        return true;
+    }
