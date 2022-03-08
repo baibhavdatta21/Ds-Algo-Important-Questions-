@@ -1,0 +1,47 @@
+//Itrative
+//Sc->O(N)
+int maxDepth(TreeNode* root) 
+    {   
+        if(root==NULL)
+        {
+            return 0;
+        }
+        int val;
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,1});
+        while(!q.empty())
+        {
+            int sz=q.size();
+            for(int i=0;i<sz;i++)
+            {
+                auto it=q.front();
+                TreeNode* dummy=it.first;
+                val=it.second;
+                q.pop();
+                if(dummy->left!=NULL)
+                q.push({dummy->left,val+1});
+                if(dummy->right!=NULL)
+                q.push({dummy->right,val+1});
+            }
+        }
+        return val;
+    }*/
+    
+    //Recursive
+    //Tc->O(height)
+    (worst for a skew tree)
+    (we normally take recursive sol as the optimized sol as most trees are not skew)
+    int solver(TreeNode* root)
+    {
+        if(root==NULL)
+        return 0;
+        
+        int l=1+solver(root->left);
+        int r=1+solver(root->right);
+        return max(l,r);
+           
+    }
+    int maxDepth(TreeNode* root) 
+    {
+        return solver(root);
+    }
