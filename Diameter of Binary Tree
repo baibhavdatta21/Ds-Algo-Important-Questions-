@@ -1,0 +1,19 @@
+int maxi=0;
+    int solver(TreeNode* root)
+    {
+        if(root==NULL)
+        return 0;
+        
+        int l=solver(root->left);
+        int r=solver(root->right);
+        maxi=max(maxi,l+r);
+        cout<<maxi<<endl;
+        return 1+max(r,l);
+    }
+    int diameterOfBinaryTree(TreeNode* root) 
+    {
+        if(root==NULL)
+        return 0;
+        solver(root);
+        return maxi;
+    }
