@@ -1,0 +1,55 @@
+//Recursive
+//TC->O(N)
+//Sc->O(N)
+bool isSameTree(TreeNode* p, TreeNode* q) 
+    {
+        if(p==NULL || q==NULL) 
+        {
+            if(p==NULL && q==NULL)
+            return true;
+            return false;
+        }
+        
+        if(p->val!=q->val)
+        return false;
+        
+        
+        if(isSameTree(p->left,q->left) && isSameTree(p->right,q->right))
+        return true;
+        return false; 
+       
+    }
+    //Itrative
+    //Tc->O(N)
+    //SC->O(N)
+    bool isSameTree(TreeNode* p, TreeNode* q)
+    {
+        queue<TreeNode*> qu;
+        qu.push(p);
+        qu.push(q);
+        
+        while(!qu.empty())
+        {
+            TreeNode* first=qu.front();
+            qu.pop();
+            TreeNode* second=qu.front();
+            qu.pop();
+            if(first==NULL || second==NULL)
+            {
+                if(first==NULL && second==NULL)
+                continue;
+                return false;
+            }
+            if(first->val!=second->val)
+            return false;
+            
+            qu.push(first->left);
+            qu.push(second->left);
+            qu.push(first->right);
+            qu.push(second->right);
+            
+        }
+        return true;
+        
+    }
+    
