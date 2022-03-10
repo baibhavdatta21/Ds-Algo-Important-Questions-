@@ -1,0 +1,27 @@
+TreeNode* cons(vector<int> &pre, int pre_s, int pre_e, vector<int> &in, int in_s, int in_e, map<int,int> &mp) 
+    {
+        if(pre_s>pre_e || in_s>in_e)
+        return NULL;
+        
+        TreeNode* root = new TreeNode(pre[pre_s]);
+        int in_root = mp[root->val];
+        int nums_left = in_root-in_s;
+        
+        root->left=cons(pre,pre_s+1,pre_e+nums_left,in,in_s,in_root-1,mp);
+        root->right=cons(pre,pre_s+nums_left+1,pre_e,in,in_root+1,in_e,mp);
+        
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& pre, vector<int>& in) 
+    {
+        //TreeNode* ans=preorde[0];
+        int in_s=0;
+        int pre_s=0;
+        int in_e=in.size()-1;
+        int pre_e=pre.size()-1;
+        map<int,int> mp;
+        for(int i=0;i<in.size();i++)
+        mp[in[i]]=i;
+        
+        return cons(pre,pre_s,pre_e,in,in_s,in_e,mp);
+    }
