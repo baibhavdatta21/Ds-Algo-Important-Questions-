@@ -1,0 +1,61 @@
+//Brute
+/*void preorder(TreeNode* root,vector<int> &ans)
+    {
+        if(root==NULL)
+        return;
+        
+        ans.push_back(root->val);
+        preorder(root->left,ans);
+        preorder(root->right,ans);
+    }
+    void flatten(TreeNode* root) 
+    {
+        vector<int> pre;
+        preorder(root,pre);
+        for(int i=1;i<pre.size();i++)
+        {
+            root->right=new TreeNode(pre[i]);
+            root->left=NULL;
+            root=root->right;
+        }
+        
+    }*/
+    
+  /*TreeNode* prev=NULL;
+    void flatten(TreeNode* root) 
+    {
+        if(root==NULL)
+        return;
+        
+        flatten(root->right);
+        flatten(root->left);
+        
+        root->right=prev;
+        root->left=NULL;
+        prev=root;
+    }*/
+    //OPTIMIZED APPROACH
+    //STEP->1.Go to the right most node of the left subtree of(say cur) cur name it prev
+    //STEP->2.Connect prev with cur's right
+    //STEP->3.Change cur's left with cur's right make cur's left equal to NULL
+    //STEP->4.go to cur's right
+    void flatten(TreeNode* root)
+    {
+        TreeNode* cur=root;
+        while(cur!=NULL)
+        {
+            if(cur->left!=NULL)
+            {
+                TreeNode* prev=cur->left;
+                while(prev->right!=NULL)
+                {
+                    prev=prev->right;
+                }
+                prev->right=cur->right;
+                cur->right=cur->left;
+                cur->left=NULL;
+                
+            }   
+            cur=cur->right;
+        }
+    }
