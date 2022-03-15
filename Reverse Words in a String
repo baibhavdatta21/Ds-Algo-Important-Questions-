@@ -1,0 +1,67 @@
+string reverseWords(string s) 
+    {
+        
+        s+=" ";
+        stack<string> st;
+        int n=s.size();
+        string temp="";
+        if(n==1)
+        return s;
+        char a,b;
+        
+        for(int i=1;i<n;i++)
+        {
+            a=s[i-1];
+            b=s[i];
+           if(a!=' ')
+           {
+               temp+=a;
+           }
+            if(b==' '&& a!=' ')
+            {
+                st.push(temp);
+                temp="";
+            }
+            a=b;
+        }
+        
+        string ans="";
+        int flag=0;
+        while(!st.empty())
+        {
+            if(flag==1)
+            {
+                ans+=" "+st.top();
+            }   
+            else
+            {
+                ans+=st.top();
+                flag=1;
+            }
+            st.pop();
+        }
+        return ans;
+        
+    }*/
+    string reverseWords(string s)
+    {
+        stringstream obj(s);
+        vector<string>v;
+        string ans="";
+        string str;
+        
+        while(obj>>str)
+        {
+            v.push_back(str);
+        }
+        reverse(v.begin(),v.end());
+        int flag=0;
+        for(auto j : v)
+        {
+            if(ans.size())  ans+=' ';
+            ans+=j;
+        }
+            
+        
+        return ans;
+    }
