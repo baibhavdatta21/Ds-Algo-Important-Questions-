@@ -1,0 +1,69 @@
+/*int romanToInt(string s) 
+    {
+        //int val=stoi(s);
+        int n=s.size();
+        map<char,int>mp;
+        mp.insert({'I',1});
+        mp.insert({'V',5});
+        mp.insert({'X',10});
+        mp.insert({'L',50});
+        mp.insert({'C',100});
+        mp.insert({'D',500});
+        mp.insert({'M',1000});
+        int val=0;
+        
+        //if(mp[s[0]]<mp[s[1]])
+       // val=(mp[s[1]]-mp[s[0]]);
+        
+        for(int i=0;i<n;i++)
+        {
+            if(i!=n-1 && mp[s[i]]<mp[s[i+1]])
+            {
+                val+=(mp[s[i+1]]-mp[s[i]]);
+                i++;
+            }    
+            else 
+            val+=mp[s[i]];
+        }
+        return val;
+    }*/
+    
+    int romanToInt(string s)
+    {
+        int dum=INT_MIN;
+        int n=s.size();
+        int num;
+        int ans=0;
+        for(int i=n-1;i>=0;i--)
+        {
+            switch(s[i])
+            {
+                case 'I':num=1;
+                break;
+                    
+                case 'V':num=5;
+                break;
+                
+                case 'X':num=10;
+                break;    
+                    
+                case 'L':num=50;
+                break;
+                    
+                case 'C':num=100;
+                break;
+                  
+                case 'D':num=500;
+                break;
+                  
+                case 'M':num=1000;
+                break;    
+            }
+            if(dum>num)
+            ans-=num;
+            else
+            ans+=num;
+            dum=num;
+        }
+        return ans;
+    }
