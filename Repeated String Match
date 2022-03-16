@@ -1,0 +1,78 @@
+int repeatedStringMatch(string a, string b) 
+    {
+		//creating p as a copy of a,since we will append a letter on p ;-->
+		string p=a;
+		int i=1;
+
+		// this length(b) / length(a) + 2 is the max predicted times that can be found within the loop.  simple math ;-} 
+
+
+		while(i<=(b.length()/a.length())+2)
+		{
+
+			//checking if p is in the p if yes then return i;
+			if(p.find(b)!=-1) return i;
+
+
+			// else append p with a
+			else p+=a;
+			i++;
+		}
+
+		return -1;
+
+	}
+    /*int rabin_karp(string source,string target)
+    {
+        if(source == "" or target == "") return -1;
+        int m = target.size();
+        int power = 1;
+        int BASE = 1000000;
+        for(int i = 0;i<m;i++){
+            power = (power*31)%BASE;
+        }
+        int targetCode = 0;
+        for(int i = 0;i<m;i++){
+            targetCode = (targetCode*31+target[i])%BASE;
+        }
+        int hashCode = 0;
+        for(int i = 0;i<source.size();i++){
+            hashCode = (hashCode*31 + source[i])%BASE;
+            if(i<m-1) continue;
+            if(i>=m){
+                hashCode = (hashCode-source[i-m]*power)%BASE;
+            }
+            if(hashCode<0)
+                hashCode+=BASE;
+            if(hashCode == targetCode){
+                if(source.substr(i-m+1,m) == target)
+                    return i-m+1;
+            }
+        }
+        return -1;
+    }
+        
+        
+    
+    int repeatedStringMatch(string a, string b) 
+    {
+        int n=a.size();
+        int m=b.size();
+        string dum=a;
+        if(a==b)
+        return 1;
+        int count=1;
+        while(dum.size()<b.size())
+        {
+            dum+=a;
+            count+=1;
+        }
+        if(dum==b)
+        return count;
+        if(rabin_karp(dum,b)!=-1)
+        return count;
+        if(rabin_karp(a+dum,b)!=-1)
+        return count+1;
+        
+        return -1;
+    }*/
