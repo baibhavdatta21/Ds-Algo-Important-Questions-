@@ -27,3 +27,63 @@ int strStr(string haystack, string needle)
         return found;
         return -1;
     }
+//NOW Using Z function
+//TC->O(N+m)
+//SC->O(N+m)
+void computeZ(vector<int>&z,string sum)
+    {
+        int l=0;
+        int r=0;
+        z[0]=0;
+        int sz=sum.size();
+        for(int i=1;i<sz;i++)
+        {
+            if(i>r)
+            {
+                l=r=i;
+                while(r<sz && sum[r]==sum[r-l])
+                r++;
+                z[i]=r-l;
+                r--;
+            }
+            else
+            {
+                int k1=i-l;
+                if(z[k1]<r-i+1)
+                {
+                    z[i]=z[k1];
+                }
+                else
+                {
+                    l=i;
+                    while(r<sz && sum[r]==sum[r-l])
+                    r++;
+                    z[i]=r-l;
+                    r--;
+                }
+            }
+        }
+    }
+    int strStr(string haystack, string needle)
+    {
+        int n=haystack.size();
+        int m=needle.size();
+        if(m==0)
+        return 0;
+        
+        string sum=needle+'$'+haystack;
+        vector<int>z(n+m+1,0);
+        computeZ(z,sum);
+        
+        for(int i=0;i<m+n+1;i++)
+        {
+           cout<<z[i]<<" ";
+        }
+        for(int i=0;i<m+n+1;i++)
+        {
+            if(z[i]>=m)
+            return i-m-1;
+        }
+        return -1;
+    }
+    
