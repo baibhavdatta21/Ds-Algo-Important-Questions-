@@ -1,0 +1,29 @@
+int compareVersion(string ver1, string ver2) 
+    {
+        int n=ver1.size();
+        int m=ver2.size();
+        int i=0;
+        int j=0;
+        while(i<n || j<m)
+        {
+            int num1=0;
+            int num2=0;
+            while(i<n && ver1[i]!='.')
+            {
+                num1=num1*10+(ver1[i]-'0');
+                i++;
+            }
+            while(j<m && ver2[j]!='.')
+            {
+                num2=num2*10+(ver2[j]-'0');
+                j++;
+            }
+            if(num1>num2)
+            return 1;
+            if(num2>num1)
+            return -1;
+            i++;
+            j++;
+        }
+        return 0;
+    }
