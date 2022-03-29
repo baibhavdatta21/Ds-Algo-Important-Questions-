@@ -1,0 +1,54 @@
+Node* connect(Node* root) 
+    {
+        if(root==NULL)
+        return root;
+        queue<Node*> q;
+        Node* cur=root;
+        q.push(cur);
+        while(!q.empty())
+        {
+            int sz=q.size();
+            for(int i=0;i<sz;i++)
+            {
+                Node* dummy=q.front();
+                q.pop();
+                if((sz-i)>1)
+                {
+                    dummy->next=q.front();
+                }
+                else
+                {
+                    dummy->next=NULL;
+                }
+                if(dummy->left!=NULL)
+                q.push(dummy->left);
+                if(dummy->right!=NULL)
+                q.push(dummy->right);
+            }
+        }
+        return root;
+    }*/
+    void solver(Node* l,Node* r)
+    {
+        if(l==NULL)
+        return;
+
+        
+        l->next=r;
+        
+        solver(l->left,l->right);
+        solver(l->right,r->left);
+        solver(r->left,r->right);
+        
+    }
+    Node* connect(Node* root)
+    {
+        if(root==NULL)
+        return root;
+        if(root->left==NULL)
+        return root;
+        
+        solver(root->left,root->right);
+        return root;
+    
+    }
