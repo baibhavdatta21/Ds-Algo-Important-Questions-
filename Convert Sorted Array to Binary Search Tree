@@ -1,0 +1,17 @@
+TreeNode* solver(int l,int h,vector<int>&nums)
+    {
+        if(l>h)
+        return NULL;
+        TreeNode* root=new TreeNode(nums[(l+h)/2]);
+        root->left=solver(l,((l+h)/2)-1,nums);
+        root->right=solver(((l+h)/2)+1,h,nums);
+        
+        return root;
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) 
+    {
+
+        int n=nums.size();
+        return solver(0,n-1,nums);
+        
+    }
