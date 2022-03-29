@@ -1,0 +1,30 @@
+TreeNode* searchBST(TreeNode* root, int target) 
+    {
+        while(true)
+        {
+            if(root==NULL)
+            return NULL;
+            
+            if(root->val==target)
+            return root;
+            
+            if(target>root->val)
+            root=root->right;
+            else
+            root=root->left;
+        }
+    }*/
+    
+    TreeNode* searchBST(TreeNode* root, int target)
+    {
+       if(root==NULL)
+        return NULL;
+        
+        if(root->val==target)
+        return root;
+        else if(root->val<target)
+         return searchBST(root->right, target);
+        else 
+         return searchBST(root->left, target);
+        
+    }
