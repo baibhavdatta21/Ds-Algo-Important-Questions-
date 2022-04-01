@@ -1,0 +1,48 @@
+Optimized 
+//TC->O(N)
+//SC->O(N)
+
+void  pred(Node* root, Node*& pre,int k)
+{
+    while(true)
+    {
+        if(root==NULL)
+        return;
+        
+        if(root->key>=k)
+        {
+
+            root=root->left;
+        }
+        else
+        {
+            pre=root;
+            root=root->right;
+        }
+    }  
+}
+void succ(Node* root, Node*& suc,int k)
+{
+    while(true)
+    {
+        if(root==NULL)
+        return;
+        
+        if(root->key>k)
+        {
+            suc=root;
+            root=root->left;
+        }
+        else
+        {
+            root=root->right;
+        }
+    }    
+}
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int k)
+{
+    pre=new Node(-1);
+    suc=new Node(-1);
+    pred(root,pre,key);
+    succ(root,suc,k);
+}
