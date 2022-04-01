@@ -1,0 +1,49 @@
+//Brute
+//TC->O(2N)
+//Sc->O(2N)[recursive stack_space]+[vector]
+void solver(TreeNode* root,vector<int>&in)
+    {
+        if(root==NULL)
+        return;
+        
+        solver(root->left,in);
+        in.push_back(root->val);
+        solver(root->right,in);
+    }
+    bool isValidBST(TreeNode* root) 
+    {
+        vector<int>in;
+
+        solver(root,in);
+        
+        int n=in.size();
+
+ 
+        for(int i=0;i<n-1;i++)
+        {
+            if(in[i]>=in[i+1])
+            return false;
+        }
+        return true;
+    }*/
+   //Optimized
+  //TC->O(N)
+  //Sc->O(N)[recursive stack_space]
+
+    bool solver(TreeNode* root, long long min,long long max)
+    {
+        if(root==NULL)
+        return true;
+        
+        if(root->val<=min || root->val>=max)
+        return false;
+
+        if(solver(root->left,min,root->val) && solver(root->right,root->val,max))
+        return true;
+        else
+        return false;
+    }
+    bool isValidBST(TreeNode* root) 
+    {
+        return solver(root,LONG_MIN,LONG_MAX);
+    }
