@@ -1,0 +1,77 @@
+//Brute 
+//TC->O(N*N)
+//SC->O(N) (stack space)
+TreeNode* solver(int i,int j,vector<int>& pre)
+    {
+        if(i>j)
+        return NULL;
+        TreeNode* root=new TreeNode(pre[i]);
+        int k;
+        for(k=i+1;k<=j;k++)
+        {
+            if(pre[k]>pre[i])
+            break;
+        }
+        root->left=solver(i+1,k-1,pre);
+        root->right=solver(k,j,pre);
+        return root;
+        
+    }
+    //Better
+    //TC->O(NlogN + N)
+    //SC->O(N)(map ds) + O(N)(stack space)
+
+    
+    TreeNode* bstFromPreorder(vector<int>& pre) 
+    {
+        int n=pre.size();
+        return solver(0,n-1,pre);
+    }*/
+    //TC->O(N*N)
+        //OPtimized
+    //TC->O(N)
+    //SC-> O(N)(stack space)
+   /* TreeNode* Bt(vector<int>& pre, int pre_start, int pre_end, vector<int>& in, int in_start, int in_end,map<int,int> &mp)
+    {
+        if(pre_start>pre_end || in_start>in_end)
+        return NULL;
+        
+        TreeNode* root=new TreeNode(pre[pre_start]);
+        int root_in=mp[root->val];
+        int root_left=root_in-in_start;
+        
+        root->left=Bt(pre,pre_start+1,pre_start+root_left,in,in_start,root_in-1,mp);
+        root->right=Bt(pre,pre_start+1+root_left,pre_end,in,root_in+1,in_end,mp);
+        return root;
+    }
+    
+    TreeNode* bstFromPreorder(vector<int>& pre)
+    {
+        vector<int>preorder=pre;
+        sort(pre.begin(),pre.end()); //It has now become the inorder traversal
+        int n=pre.size();
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        mp[pre[i]]=i;
+        return Bt(preorder,0,n-1,pre,0,n-1,mp);
+    }*/  //TC->O(NlogN)+O(N)
+    /*TreeNode* solver(int &i,vector<int>& pre,int bound)
+    {
+        if(i==pre.size())
+        return NULL;
+        
+        if(pre[i]>bound)
+        return NULL;
+        
+        TreeNode* root=new TreeNode(pre[i]); 
+        i++;
+        root->left=solver(i,pre,root->val);
+        root->right=solver(i,pre,bound);
+            
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& pre)
+    {
+        int i=0;
+        return solver(i,pre,INT_MAX);
+    }
