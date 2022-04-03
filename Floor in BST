@@ -1,0 +1,22 @@
+
+
+int floorInBST(TreeNode<int> * root, int x)
+{
+    int store=root->val;
+    while(true)
+    {
+        if(root==NULL)
+        return store;
+        if(root->val==x)
+        return x;
+        if(root->val<x)
+        {
+            store=root->val;
+            root=root->right;
+        }    
+        else
+        {
+        	root=root->left;
+        }    
+     }
+}
