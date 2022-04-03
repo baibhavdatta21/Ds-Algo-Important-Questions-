@@ -1,0 +1,183 @@
+void solver(TreeNode* root,vector<int>&in)
+    {
+        if(root==NULL)
+        return;
+        solver(root->left,in);
+        in.push_back(root->val);
+        solver(root->right,in);
+    }
+    bool findTarget(TreeNode* root, int k) 
+    {
+        vector<int> in;
+        solver(root,in);
+        int n=in.size();
+        int i=0,j=n-1;
+        while(j>i)
+        {
+            if(k==(in[i]+in[j]))
+            {
+                return true;
+            }
+            else if(k>in[i]+in[j])
+            {
+                i++;
+            }
+            else if(k<in[i]+in[j])
+            {
+                j--;
+            }
+        }
+        return false;
+    }*/
+     /*bool findTarget(TreeNode* root, int k)
+     {
+         vector<int> in;
+         TreeNode* cur=root;
+         while(cur!=NULL)
+         {
+             if(cur->left==NULL)
+             {
+                 in.push_back(cur->val);
+                 cur=cur->right;
+             }
+             else
+             {
+                 TreeNode* prev=cur->left;
+                 
+                 while(prev->right!=NULL && prev->right!=cur)
+                 {
+                     prev=prev->right;
+                 }
+                 if(prev->right==NULL)
+                 {
+                     prev->right=cur;
+                     cur=cur->left;
+                 }
+                 else
+                 {
+                     prev->right=NULL;
+                     in.push_back(cur->val);
+                     cur=cur->right;
+                     
+                 }
+             }
+         }
+         int n=in.size();
+        int i=0,j=n-1;
+        while(j>i)
+        {
+            if(k==(in[i]+in[j]))
+            {
+                return true;
+            }
+            else if(k>in[i]+in[j])
+            {
+                i++;
+            }
+            else if(k<in[i]+in[j])
+            {
+                j--;
+            }
+        }
+        return false;
+     }*/
+    /*void go_left(TreeNode* root,stack<TreeNode* > &st1)
+    {
+        while(root!=NULL)
+        {
+            st1.push(root);
+            root=root->left;
+        }
+    }
+    void go_right(TreeNode* root,stack<TreeNode* > &st2)
+    {
+        while(root!=NULL)
+        {
+            st2.push(root);
+            root=root->right;
+        }
+    }
+    bool findTarget(TreeNode* root, int k)
+    {
+        stack<TreeNode* > st1;
+        stack<TreeNode* > st2;
+        go_left(root,st1);
+        go_right(root,st2);
+        TreeNode* l=st1.top();
+        TreeNode* r=st2.top();
+        while(true)
+        {
+            l=st1.top();
+            r=st2.top();
+            if(l->val==r->val)
+            return false;
+           if((l->val+r->val)==k)
+            return true;
+            else if((l->val+r->val)<k)
+            {
+                //st1.push(l->right);
+                st1.pop();
+                go_left(l->right,st1);
+            }
+           else if((l->val+r->val)>k)
+            {
+                //st1.push(l->right);
+               st2.pop();
+                go_right(r->left,st2);
+            }
+            
+        }
+        return false;
+    }*/   //This code is by me with a similar time complexity but still writing down the next code its by striver
+          // the next one is of better code quality and code quality fuckinnnn mattttttttters
+class BSTIterator {
+    stack<TreeNode *> myStack;
+    bool reverse = true; 
+public:
+    BSTIterator(TreeNode *root, bool isReverse) {
+        reverse = isReverse; 
+        pushAll(root);
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return !myStack.empty();
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        TreeNode *tmpNode = myStack.top();
+        myStack.pop();
+        if(!reverse) pushAll(tmpNode->right);
+        else pushAll(tmpNode->left);
+        return tmpNode->val;
+    }
+
+private:
+    void pushAll(TreeNode *node) {
+        for(;node != NULL; ) {
+             myStack.push(node);
+             if(reverse == true) {
+                 node = node->right; 
+             } else {
+                 node = node->left; 
+             }
+        }
+    }
+};
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(!root) return false; 
+        BSTIterator l(root, false); 
+        BSTIterator r(root, true); 
+        
+        int i = l.next(); 
+        int j = r.next(); 
+        while(i<j) {
+            if(i + j == k) return true; 
+            else if(i + j < k) i = l.next(); 
+            else j = r.next(); 
+        }
+        return false; 
+    }
