@@ -1,0 +1,46 @@
+//Brute
+//TC->O(N)
+//SC->O(N)+O(N)
+void inorder(Node* root, vector<int> &v)
+    {
+        if(root==NULL)
+        return;
+        inorder(root->left,v);
+        v.push_back(root->data);
+        inorder(root->right,v);
+    }
+    int kthLargest(Node *root, int K)
+    {
+        //Your code here
+        vector<int> v;
+        inorder(root,v);
+        reverse(v.begin(),v.end());  // sort(v.begin(),v.end(),greater<int>());
+        return v[K-1];
+        
+    }*/
+   //Better
+   //TC->O(N)
+  //SC->O(N)
+    int ans;
+    void solver(Node* root, int &count,int k)
+    {
+        if(root==NULL)
+        return;
+        
+    
+        solver(root->right,count,k);
+        count++;
+        if(k==count)
+        {
+            ans=root->data;
+            return;
+        }   
+        
+        solver(root->left,count,k);
+    }
+    int kthLargest(Node *root, int k)
+    {
+        int u=0;
+        solver(root,u,k);
+        return ans;
+    }
