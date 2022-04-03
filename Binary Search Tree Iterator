@@ -1,0 +1,34 @@
+stack<TreeNode*>st;
+    void go_left(stack<TreeNode*>&st,TreeNode* root)
+    {
+        while(root!=NULL)
+        {
+            st.push(root);
+            root=root->left;
+        }
+    }
+    BSTIterator(TreeNode* root)
+    {
+        
+        go_left(st,root);
+    }
+    
+    int next() 
+    {
+        TreeNode* dum=st.top();
+        st.pop();
+        if(dum->right!=NULL)
+        {
+           // st.push(dum->right);
+            go_left(st,dum->right);
+        }
+        
+        return dum->val;
+    }
+    
+    bool hasNext()
+    {
+        if(st.empty())
+        return false;
+        return true;
+    }
