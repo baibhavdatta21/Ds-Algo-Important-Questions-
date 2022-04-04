@@ -1,0 +1,52 @@
+//Optimized
+//TC->O(N)
+//SC->O(1)
+
+
+class node
+{
+    public:
+    bool is_bst;
+    int sum;
+    int mx;
+    int mn;
+};
+class Solution {
+public:
+    int maxi;
+    node solver(TreeNode* root)
+    {
+        if(root==NULL)
+        {
+            node n;
+            n.is_bst=true;
+            n.sum=0;
+            n.mx=INT_MIN;
+            n.mn=INT_MAX;
+            return n;
+        }
+        node n;
+        node l=solver(root->left);
+        node r=solver(root->right);
+        
+        if(l.is_bst==true && r.is_bst==true && l.mx<root->val && r.mn>root->val)
+        {
+            n.is_bst=true;
+            n.sum=root->val+l.sum+r.sum;
+            n.mx=max(root->val,(r.mx));
+            n.mn=min(root->val,(l.mn));
+        }
+        else
+        {
+            n.is_bst=false;
+            n.sum=max(l.sum,r.sum);
+        }
+        maxi=max(n.sum,maxi);
+        return n;
+    }
+    int maxSumBST(TreeNode* root)
+    {
+        
+        solver(root);
+        return maxi;
+    }
