@@ -1,0 +1,26 @@
+//optimized
+//TC->O(nlogn)
+//Sc->O(N)
+
+priority_queue<int,vector<int>,greater<int>>pq;
+    int sz;
+    KthLargest(int k, vector<int>& nums) 
+    {
+        sz=k;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            pq.push(nums[i]);
+            if(pq.size()>sz)
+            pq.pop();
+        }
+    }
+    
+    int add(int val) 
+    {
+        
+        pq.push(val);
+        if(pq.size()>sz)
+        pq.pop();
+        return pq.top();
+    }
