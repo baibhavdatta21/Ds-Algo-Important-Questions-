@@ -1,0 +1,70 @@
+//Brute
+//TC->(n^2logn)
+//Sc->O(N)
+/*class MedianFinder {
+public:
+    MedianFinder() {
+        
+    }
+    vector<int>v;
+    void addNum(int num)
+    {
+        v.push_back(num);
+        sort(v.begin(),v.end());
+    }
+    
+    double findMedian() 
+    {
+        int n=v.size();
+        if(n%2==0)
+        {
+            return (v[n/2]+v[n/2-1])/2.0;
+        }
+        else
+        {
+            return v[n/2];
+        }
+    }
+};*/
+//optimized
+//TC->(nlogn)
+//Sc->O(N)
+/*class MedianFinder {
+private: 
+    priority_queue<int>pq1;
+    priority_queue<int,vector<int>,greater<int>>pq2;
+public:
+    MedianFinder() {}
+    
+    void addNum(int num) 
+    {
+        if(pq1.empty() || pq1.top()>num)
+        {
+            pq1.push(num);
+        }
+        else
+        {
+            pq2.push(num);
+        }
+        if(pq1.size()<pq2.size())
+        {
+            pq1.push(pq2.top());
+            pq2.pop();
+        }
+        else if(pq1.size()>pq2.size()+1)
+        {
+            pq2.push(pq1.top());
+            pq1.pop();
+        }
+        
+    }
+    
+    double findMedian() 
+    {
+        
+        if(pq1.size()>pq2.size())
+        return pq1.top();
+        else
+        return (pq1.top()+pq2.top())/2.0;
+    }
+};*/
