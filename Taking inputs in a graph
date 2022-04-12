@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int  long long 
+#define mod 1000000007
+#define double long double
+
+// void solver()
+// {
+//     int n;
+//     int m;
+//     cin>>n>>m;
+//     vector<vector<int>>adj(n+1,vector<int>(n+1,0));
+
+//     for(int i=0;i<m;i++)
+//     {
+//         int u,v;
+//         cin>>u>>v;
+//         adj[u][v]=1;
+//         adj[v][u]=1;
+//     }
+//     //cout<<adj[0][0];
+//     for(int i=0;i<n+1;i++)
+//     {
+//         for(int j=0;j<n+1;j++)
+//         {
+//             cout<<adj[i][j]<<" ";
+//         }
+//         cout<<endl;
+//     }
+// }                                                     //adjacency matrix
+void solver()
+{
+     int n,m;
+     cin>>n>>m;
+     vector<int>adj[n+1];
+     for(int i=0;i<m;i++)
+     {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    int k=adj[1].size();
+    //cout<<adj[1][0];
+    for(int i=0;i<n+1;i++)
+    {
+        for(int j=0;j<adj[i].size();j++)
+        {
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<"\n";
+    }                              //adjacency list 
+}
+signed main()
+{
+#ifndef ONLINE_JUDGE
+        freopen("in.txt","r",stdin);
+        freopen("out.txt","w",stdout);
+#endif    
+    int  t;
+    cin>>t;
+
+    while(t--)
+    {
+        solver();
+    }
+    return 0;
+}
