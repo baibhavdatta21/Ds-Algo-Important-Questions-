@@ -1,0 +1,28 @@
+
+TC->O(N+E)logE;
+SC->O(N)+O(N)+O(N)
+vector <int> dijkstra(int n, vector<vector<int>> adj[], int s)
+    {
+        // Code here
+        vector<int>dis(n,INT_MAX);
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        pq.push({0,s});
+        dis[s]=0;
+        while(!pq.empty())
+        {
+            auto it=pq.top();
+            pq.pop();
+            for(auto it2:adj[it.second])
+            {
+                int n=it2[0];
+                int d=it2[1];
+                if(dis[it.second]+d<dis[n])
+                {
+                    dis[n]=dis[it.second]+d;
+                    pq.push({d+dis[it.second],n});
+                }
+                
+            }
+        }
+        return dis;
+    }
